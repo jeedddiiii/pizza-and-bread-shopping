@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Mitr&family=Nunito:wght@200;400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Mitr&family=Noto+Serif+JP:wght@200;400;700&display=swap');
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Serif JP', serif;
+}
+
+/* navbar */
+
+.nav-bar {
+  height: 70px;
+  background-color: #E0DFD5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4rem;
+}
+
+.nav-bar a {
+  text-decoration: none;
+  color: #313638;
+}
+.nav-bar h2 {
+  font-size: 30px;
+}
+
+.nav-bag {
+  display: flex;
+  align-items: center;
+}
+
+.bag-quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  width: 25px;
+  background-color: yellow;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 700;
+  color: black;
+  margin-left: 5px;
+}
+
+/* NotFound */
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(68, 68, 68);
+  min-height: 80vh;
+}
+.not-found h2 {
+  font-size: 55px;
+}
+.not-found p {
+  font-size: 20px;
+}
