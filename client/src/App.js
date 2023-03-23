@@ -1,22 +1,32 @@
 import "./App.css";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Cart from "./components/Cart";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <Router>
+        <ToastContainer />
         <NavBar />
         <Switch>
-          <Route path="/cart" exact component={Cart} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/cart" component={Cart} />
+
           <Route path="/not-found" component={NotFound} />
-          <Route path="/" exact component={Home} />
+
           <Redirect to="/not-found" />
         </Switch>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }

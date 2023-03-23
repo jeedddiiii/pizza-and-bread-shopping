@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
     <nav className="nav-bar">
-      <Link to="/">
+
+      <Link to="/" exact>
         <h2>Pizza&Bread</h2>
       </Link>
-      <Link to="/cart">
+      <Link to="/cart" exact>
         <div className="nav-bag">
           <svg
             xmlns="http://www.w3.org/2000/svg"
