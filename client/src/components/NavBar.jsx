@@ -1,8 +1,11 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import styled from "styled-components";
+import { logoutUser } from "../features/authSlice";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
   const { cartTotalQuantity } = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
 
@@ -29,7 +32,16 @@ const NavBar = () => {
         </div>
       </Link>
       {auth._id ? (
-        <Logout>Logout</Logout>
+        <Logout
+          onClick={() => {
+            dispatch(logoutUser(null));
+            toast.warning("Logged out successfully", {
+              position: "bottom-left",
+            });
+          }}
+        >
+          Logout
+        </Logout>
       ) : (
         <AuthLinks>
           <Link to="/login">Login</Link>
