@@ -2,12 +2,12 @@ import "./App.css";
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
-  Redirect,
+  Routes
 } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Cart from "./components/Cart";
 import Home from "./components/Home";
+import Register from "./components/auth/Register";
 import NotFound from "./components/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,14 +18,13 @@ function App() {
       <Router>
         <ToastContainer />
         <NavBar />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/cart" component={Cart} />
-
-          <Route path="/not-found" component={NotFound} />
-
-          <Redirect to="/not-found" />
-        </Switch>
+        <Routes>
+          <Route exact path="/" element={<Home/>} />
+          <Route path="/cart" element={<Cart/>} />
+          <Route path="/register" element={<Register/>} />
+          <Route path="/not-found" element={<NotFound/>} />
+          <Route to="/not-found" />
+        </Routes>
       </Router>
     </div>
   );

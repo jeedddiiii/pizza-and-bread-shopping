@@ -1,15 +1,20 @@
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
+import { useDispatch , useSelector} from "react-redux";
+import { useNavigate } from "react-router";
 import { addToCart } from "../features/cartSlice";
 import { useGetAllProductsQuery } from "../features/productsApi";
 const Home = () => {
+  const { items: products, status } = useSelector((state) => state.products);
+ 
+
   const { data, error, isLoading } = useGetAllProductsQuery();
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
+
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product))
-    history.push("/cart");
-  }
+    dispatch(addToCart(product));
+    navigate("/cart");
+  };
+
   return (
     <div className="home-container">
       {isLoading ? (

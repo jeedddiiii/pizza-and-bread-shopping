@@ -27,12 +27,25 @@ app.get("/products", (req, res) => {
 const port = process.env.PORT || 5000;
 const uri = process.env.DB_URI;
 
-app.listen(port, console.log("server running on port " + port));
+// app.listen(port, console.log("server running on port " + port));
+
+// mongoose
+//   .connect(uri, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log("connected to MongoDB..."))
+//   .catch((err) => console.log("MongoDB connection failed", err.message));
 
 mongoose
   .connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("connected to MongoDB..."))
+  .then(() => {
+    console.log("connected to MongoDB...");
+    app.listen(port, () => {
+      console.log("server running on port " + port);
+    });
+  })
   .catch((err) => console.log("MongoDB connection failed", err.message));
