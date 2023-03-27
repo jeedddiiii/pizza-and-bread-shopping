@@ -3,8 +3,7 @@ import { useNavigate } from "react-router";
 import { addToCart } from "../features/cartSlice";
 import { useGetAllProductsQuery } from "../features/productsApi";
 const Home = () => {
-  const { items: products, status } = useSelector((state) => state.products);
- 
+  // const { items: products, status } = useSelector((state) => state.products);
 
   const { data, error, isLoading } = useGetAllProductsQuery();
   const dispatch = useDispatch();
