@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../features/authSlice";
+import { StyledForm } from "./StyledForm";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const Register = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <StyledForm onSubmit={handleSubmit}>
         <h2>Register</h2>
         <input
           type="text"
@@ -45,7 +46,7 @@ const Register = () => {
         {auth.registerStatus === "rejected" ? (
           <p>{auth.registerError}</p>
         ) : null}
-      </form>
+      </StyledForm>
     </>
   );
 };
