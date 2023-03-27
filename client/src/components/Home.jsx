@@ -4,6 +4,7 @@ import { addToCart } from "../features/cartSlice";
 import { useGetAllProductsQuery } from "../features/productsApi";
 const Home = () => {
   // const { items: products, status } = useSelector((state) => state.products);
+  //test
 
   const { data, error, isLoading } = useGetAllProductsQuery();
   const dispatch = useDispatch();
