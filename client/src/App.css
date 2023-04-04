@@ -255,6 +255,12 @@
   color: #000;
   letter-spacing: 1.15px;
 }
+
+.cart-checkout .cart-login{
+  background-color: #e0dfd5;
+  color: #000;
+}
+
 .continue-shopping,
 .start-shopping {
   margin-top: 1rem;

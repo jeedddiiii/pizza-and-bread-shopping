@@ -11,6 +11,7 @@ import Register from "./components/auth/Register";
 import NotFound from "./components/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Login from "./components/auth/Login";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route exact path="/" element={<Home/>} />
           <Route path="/cart" element={<Cart/>} />
           <Route path="/register" element={<Register/>} />
+          <Route path="/login" element={<Login/>} />
           <Route path="/not-found" element={<NotFound/>} />
           <Route to="/not-found" />
         </Routes>

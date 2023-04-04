@@ -33,6 +33,23 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const loginUser = createAsyncThunk(
+  "auth/loginUser",
+  async (user, { rejectWithValue }) => {
+    try {
+      const token = await axios.post(`${url}/login`, {
+        email: user.email,
+        password: user.password,
+      });
+      localStorage.setItem("token", token.data);
+      return token.data;
+    } catch (err) {
+      console.log(err.response.data);
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -90,6 +107,30 @@ const authSlice = createSlice({
         ...state,
         registerStatus: "rejected",
         registerError: action.payload,
+      };
+    });
+    builder.addCase(loginUser.pending, (state, action) => {
+      return { ...state, loginStatus: "pending" };
+    });
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      if (action.payload) {
+        const user = jwtDecode(action.payload);
+
+        return {
+          ...state,
+          token: action.payload,
+          name: user.name,
+          email: user.email,
+          _id: user._id,
+          loginStatus: "success",
+        };
+      } else return state;
+    });
+    builder.addCase(loginUser.rejected, (state, action) => {
+      return {
+        ...state,
+        loginStatus: "rejected",
+        loginError: action.payload,
       };
     });
   },
