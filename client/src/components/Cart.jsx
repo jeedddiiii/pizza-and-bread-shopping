@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getTotals, removeFromCart } from "../features/cartSlice";
-import { decreaseCart } from "../features/cartSlice";
-import { addToCart } from "../features/cartSlice";
-import { clearCart } from "../features/cartSlice";
+import { getTotals, removeFromCart } from "../slices/cartSlice";
+import { decreaseCart } from "../slices/cartSlice";
+import { addToCart } from "../slices/cartSlice";
+import { clearCart } from "../slices/cartSlice";
+import PayButton from "./PayButton";
 
 
 const Cart = () => {
@@ -103,7 +104,7 @@ const Cart = () => {
               </div>
               <p>Taxes and shipping calculated at checkout</p>
               {auth._id ? (
-                <button>Check out</button>
+                <PayButton cartItems={cart.cartItems} />
               ) : (
                 <button
                   className="cart-login"

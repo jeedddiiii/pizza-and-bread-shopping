@@ -5,11 +5,11 @@ import App from "./App";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 
-import productsReducer, { productsFetch } from "./features/productsSlice";
-import { productsApi } from "./features/productsApi";
-import cartReducer, { getTotals } from "./features/cartSlice";
-import authReducer from "./features/authSlice";
-import { loadUser } from "./features/authSlice";
+import productsReducer, { productsFetch } from "./slices/productsSlice";
+import { productsApi } from "./slices/productsApi";
+import cartReducer, { getTotals } from "./slices/cartSlice";
+import authReducer from "./slices/authSlice";
+import { loadUser } from "./slices/authSlice";
 
 const store = configureStore({
   reducer: {

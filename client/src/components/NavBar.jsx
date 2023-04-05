@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { logoutUser } from "../features/authSlice";
+import { logoutUser } from "../slices/authSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
