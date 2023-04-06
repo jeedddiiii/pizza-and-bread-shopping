@@ -256,7 +256,7 @@
   letter-spacing: 1.15px;
 }
 
-.cart-checkout .cart-login{
+.cart-checkout .cart-login {
   background-color: #e0dfd5;
   color: #000;
 }
@@ -265,22 +265,29 @@
 .start-shopping {
   margin-top: 1rem;
 }
-.continue-shopping a,.start-shopping a{
+.continue-shopping a,
+.start-shopping a {
   color: #313638;
   display: flex;
   text-decoration: none;
   align-items: center;
 }
-.continue-shopping a span,.start-shopping a span{
+.continue-shopping a span,
+.start-shopping a span {
   margin-left: 0.5rem;
 }
 .cart-empty {
   font-size: 20px;
   margin-top: 2rem;
   display: flex;
-  color : #313638;
+  color: #313638;
   align-items: center;
   flex-direction: column;
 }
-  
-  
+/* Admin */
+.link-active {
+  color: #e0dfd5;
+}
+.link-inactive {
+  color: #313638;
+}
