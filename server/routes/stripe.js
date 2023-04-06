@@ -1,5 +1,6 @@
 const express = require("express");
 const Stripe = require("stripe");
+const { Order } = require("../models/order");
 
 require("dotenv").config();
 
@@ -71,6 +72,28 @@ router.post("/create-checkout-session", async (req, res) => {
   res.send({ url: session.url });
 });
 
+//Create order
+const createOrder = async (customer, data) => {
+  const Items = JSON.parse(customer.metadata.cart);
+
+  const newOrder = new Order({
+    userId: customer.metadata.userId,
+    customerId: data.customer,
+    paymentIntentId: data.payment_intent,
+    products: Items,
+    subtotal: data.amount_total,
+    total: data.amount_total,
+    shipping: data.customer_details,
+    payment_status: data.payment_status,
+  });
+  try {
+    const savedOrder = await newOrder.save();
+    console.log("Processed Order", savedOrder);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 //Stripe Webhook
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
@@ -91,11 +114,7 @@ router.post(
       let event;
 
       try {
-        event = stripe.webhooks.constructEvent(
-          req.body,
-          sig,
-          endpointSecret
-        );
+        event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
         console.log("Webhook received!");
       } catch (err) {
         console.log(`Webhook Error: ${err.message}`);
@@ -116,9 +135,7 @@ router.post(
       stripe.customers
         .retrieve(data.customer)
         .then((customer) => {
-          console.log(customer);
-          console.log("data", data);
-
+          createOrder(customer, data);
         })
         .catch((err) => console.log(err.message));
     }
