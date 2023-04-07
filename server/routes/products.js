@@ -6,12 +6,15 @@ const router = express.Router();
 // CREATE
 router.post("/", async (req, res) => {
   const { name, brand, desc, price, image } = req.body;
-  try {
+  console.log(req.body);
+  // try {
     if (image) {
       const uploadRes = await cloudinary.uploader.upload(image, {
-        upload_preset: "pizzabread",
+        upload_preset: "onlineShop",
       });
+      console.log(uploadRes);
       if (uploadRes) {
+
         const product = new Product({
           name,
           brand,
@@ -21,13 +24,13 @@ router.post("/", async (req, res) => {
         });
         const savedProduct = await product.save();
 
-        req.statusCode(200).send(savedProduct);
+        res.status(200).send(savedProduct);
       }
     }
-  } catch (error) {
-    console.log(error);
-    res.status(500).send(error);
-  }
+  // } catch (error) {
+  //   console.log(error);
+  //   res.status(500).send(error);
+  // }
 });
 
 router.get("/", async (req, res) => {
