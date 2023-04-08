@@ -1,7 +1,12 @@
-import { NavLink, Outlet } from "react-router-dom";
 import styled from "styled-components";
+import { Outlet, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
+  const auth = useSelector((state) => state.auth);
+
+  if (!auth.isAdmin) return <p>Access denied. Not an Admin!</p>;
+
   return (
     <StyledDashboard>
       <SideNav>
@@ -22,6 +27,22 @@ const Dashboard = () => {
         >
           Products
         </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "link-active" : "link-inactive"
+          }
+          to="/admin/orders"
+        >
+          Orders
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "link-active" : "link-inactive"
+          }
+          to="/admin/users"
+        >
+          Users
+        </NavLink>
       </SideNav>
       <Content>
         <Outlet />
@@ -38,7 +59,7 @@ const StyledDashboard = styled.div`
 `;
 
 const SideNav = styled.div`
-  border-right: 1px solid #ccc;
+  border-right: 1px solid gray;
   height: calc(100vh - 70px);
   position: fixed;
   overflow-y: auto;
@@ -56,7 +77,7 @@ const SideNav = styled.div`
 
   a {
     text-decoration: none;
-    margin-buttom: 1rem;
+    margin-bottom: 1rem;
     font-size: 14px;
   }
 `;

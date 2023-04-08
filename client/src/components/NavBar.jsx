@@ -1,20 +1,22 @@
-import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { logoutUser } from "../slices/authSlice";
+import { toast } from "react-toastify";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const { cartTotalQuantity } = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
 
+  console.log(auth);
+
   return (
     <nav className="nav-bar">
-      <Link to="/" exact>
-        <h2>Pizza&Bread</h2>
+      <Link to="/">
+        <h2>OnlineShop</h2>
       </Link>
-      <Link to="/cart" exact>
+      <Link to="/cart">
         <div className="nav-bag">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -33,15 +35,15 @@ const NavBar = () => {
       </Link>
       {auth._id ? (
         <Links>
-          <div>
-            <Link to="/admin/summary">Admin</Link>
-          </div>
+          {auth.isAdmin ? (
+            <div>
+              <Link to="/admin/summary">Admin</Link>
+            </div>
+          ) : null}
           <div
             onClick={() => {
               dispatch(logoutUser(null));
-              toast.warning("Logged out successfully", {
-                position: "bottom-left",
-              });
+              toast.warning("Logged out!", { position: "bottom-left" });
             }}
           >
             Logout
@@ -50,7 +52,7 @@ const NavBar = () => {
       ) : (
         <AuthLinks>
           <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
+          <Link to="register">Register</Link>
         </AuthLinks>
       )}
     </nav>
@@ -64,16 +66,18 @@ const AuthLinks = styled.div`
     &:last-child {
       margin-left: 2rem;
     }
+  }
 `;
 
 const Links = styled.div`
+  color: white;
   display: flex;
-  color: #fff;
+
   div {
     cursor: pointer;
+
     &:last-child {
       margin-left: 2rem;
     }
   }
 `;
-
