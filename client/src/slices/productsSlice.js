@@ -11,7 +11,7 @@ const initialState = {
 export const productsFetch = createAsyncThunk(
   "products/productsFetch",
   async () => {
-    const response = await axios.get("http://localhost:5000/products");
+    const response = await axios.get(`${url}/products`);
     return response?.data;
   }
 );
@@ -49,7 +49,7 @@ const productsSlice = createSlice({
     },
     [productsCreate.fulfilled]: (state, action) => {
       state.createStatus = "success";
-      state.items.push(action.payload)  ;
+      state.items.push(action.payload);
     },
     [productsCreate.rejected]: (state, action) => {
       state.createStatus = "rejected";
