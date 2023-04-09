@@ -37,11 +37,11 @@
   justify-content: center;
   height: 25px;
   width: 25px;
-  background-color: yellow;
+  background-color: #313638;
   border-radius: 50%;
   font-size: 14px;
   font-weight: 700;
-  color: black;
+  color: #fff;
   margin-left: 5px;
 }
 

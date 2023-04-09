@@ -77,7 +77,7 @@ const Cart = () => {
                     </button>
                   </div>
                 </div>
-                <div className="cart-product-price">${cartItem.price}</div>
+                <div className="cart-product-price">฿{cartItem.price}</div>
                 <div className="cart-product-quantity">
                   <button onClick={() => handleDecreaseCart(cartItem)}>
                     -
@@ -88,7 +88,7 @@ const Cart = () => {
                   </button>
                 </div>
                 <div className="cart-product-total-price">
-                  ${cartItem.price * cartItem.cartQuantity}
+                  ฿{cartItem.price * cartItem.cartQuantity}
                 </div>
               </div>
             ))}
@@ -100,7 +100,7 @@ const Cart = () => {
             <div className="cart-checkout">
               <div className="subtotal">
                 <span>Subtotal</span>
-                <span className="amount">${cart.cartTotalAmount}</span>
+                <span className="amount">฿{cart.cartTotalAmount}</span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
               {auth._id ? (

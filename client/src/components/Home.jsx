@@ -30,7 +30,7 @@ const Home = () => {
                   <img src={product.image?.url} alt={product.name} />
                   <div className="details">
                     <span>{product.desc}</span>
-                    <span className="price">${product.price}</span>
+                    <span className="price">฿{product.price}</span>
                   </div>
                   <button onClick={() => handleAddToCart(product)}>
                     Add To Cart

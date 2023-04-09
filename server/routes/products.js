@@ -6,7 +6,7 @@ const { isAdmin } = require("../middleware/auth");
 const router = express.Router();
 // CREATE
 router.post("/", isAdmin ,async (req, res) => {
-  const { name, brand, desc, price, image } = req.body;
+  const { name, desc, price, image } = req.body;
   console.log(req.body);
   // try {
     if (image) {
@@ -18,7 +18,6 @@ router.post("/", isAdmin ,async (req, res) => {
 
         const product = new Product({
           name,
-          brand,
           desc,
           price,
           image: uploadRes,

@@ -9,78 +9,84 @@ const stripe = Stripe(process.env.STRIPE_KEY);
 const router = express.Router();
 
 router.post("/create-checkout-session", async (req, res) => {
-  const customer = await stripe.customers.create({
-    metadata: {
-      userId: req.body.userId,
-      cart: JSON.stringify(req.body.cartItems),
-    },
-  });
-
-  const line_items = req.body.cartItems.map((item) => {
-    return {
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: item.name,
-          images: [item.image],
-          description: item.desc,
-          metadata: {
-            id: item.id,
+  try {
+    const customer = await stripe.customers.create({
+      metadata: {
+        userId: req.body.userId,
+      },
+    });
+  
+    const line_items = req.body.cartItems.map((item) => {
+      console.log('item ::', item);
+      return {
+        price_data: {
+          currency: "thb",
+          product_data: {
+            name: item.name,
+            images: [item.image.url],
+            description: item.desc,
+            metadata: {
+              id: item.id,
+            },
+          },
+          unit_amount: item.price * 100,
+        },
+        quantity: item.cartQuantity,
+      };
+    });
+  
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      shipping_address_collection: { allowed_countries: ["TH"] },
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            fixed_amount: { amount: 0, currency: "thb" },
+            display_name: "Free shipping",
+            delivery_estimate: {
+              minimum: { unit: "business_day", value: 5 },
+              maximum: { unit: "business_day", value: 7 },
+            },
           },
         },
-        unit_amount: item.price * 100,
-      },
-      quantity: item.cartQuantity,
-    };
-  });
-
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    shipping_address_collection: { allowed_countries: ["TH"] },
-    shipping_options: [
-      {
-        shipping_rate_data: {
-          type: "fixed_amount",
-          fixed_amount: { amount: 0, currency: "usd" },
-          display_name: "Free shipping",
-          delivery_estimate: {
-            minimum: { unit: "business_day", value: 5 },
-            maximum: { unit: "business_day", value: 7 },
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            fixed_amount: { amount: 1500, currency: "thb" },
+            display_name: "Next day air",
+            delivery_estimate: {
+              minimum: { unit: "business_day", value: 1 },
+              maximum: { unit: "business_day", value: 1 },
+            },
           },
         },
-      },
-      {
-        shipping_rate_data: {
-          type: "fixed_amount",
-          fixed_amount: { amount: 1500, currency: "usd" },
-          display_name: "Next day air",
-          delivery_estimate: {
-            minimum: { unit: "business_day", value: 1 },
-            maximum: { unit: "business_day", value: 1 },
-          },
-        },
-      },
-    ],
-    phone_number_collection: { enabled: true },
-    customer: customer.id,
-    line_items,
-    mode: "payment",
-    success_url: `${process.env.CLIENT_URL}/checkout-success`,
-    cancel_url: `${process.env.CLIENT_URL}/cart`,
-  });
-
-  res.send({ url: session.url });
+      ],
+      phone_number_collection: { enabled: true },
+      customer: customer.id,
+      line_items,
+      mode: "payment",
+      success_url: `${process.env.CLIENT_URL}/checkout-success`,
+      cancel_url: `${process.env.CLIENT_URL}/cart`,
+    });
+  
+    res.send({ url: session.url });
+  } catch (error) {
+    console.log(error);
+  
+    
+  }
+  
 });
 
 //Create order
-const createOrder = async (customer, data) => {
-  const Items = JSON.parse(customer.metadata.cart);
+const createOrder = async (customer, data,lineItems) => {
 
   const newOrder = new Order({
     userId: customer.metadata.userId,
     customerId: data.customer,
     paymentIntentId: data.payment_intent,
-    products: Items,
+    products: lineItems.data,
     subtotal: data.amount_total,
     total: data.amount_total,
     shipping: data.customer_details,
@@ -135,7 +141,15 @@ router.post(
       stripe.customers
         .retrieve(data.customer)
         .then((customer) => {
-          createOrder(customer, data);
+          stripe.checkout.sessions.listLineItems(
+            data.id,
+            {},
+            function(err, lineItems) {
+              // asynchronously called
+              createOrder(customer, data,lineItems);
+            }
+          );
+          
         })
         .catch((err) => console.log(err.message));
     }

@@ -9,7 +9,6 @@ const CreateProduct = () => {
 
   const [productImg, setProductImg] = useState("");
   const [name, setName] = useState("");
-  const [brand, setBrand] = useState("");
   const [price, setPrice] = useState("");
   const [desc, setDesc] = useState("");
 
@@ -36,7 +35,6 @@ const CreateProduct = () => {
     dispatch(
       productsCreate({
         name,
-        brand,
         price,
         desc,
         image: productImg,
@@ -54,14 +52,6 @@ const CreateProduct = () => {
           onChange={handleProductImageUpload}
           required
         />
-        <select onChange={(e) => setBrand(e.target.value)} required>
-          <option value="">Select Brand</option>
-          <option value="Apple">Apple</option>
-          <option value="Samsung">Samsung</option>
-          <option value="OnePlus">OnePlus</option>
-          <option value="Xiaomi">Xiaomi</option>
-        </select>
-
         <input
           type="text"
           required

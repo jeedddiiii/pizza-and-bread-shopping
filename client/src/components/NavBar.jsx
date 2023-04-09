@@ -14,7 +14,7 @@ const NavBar = () => {
   return (
     <nav className="nav-bar">
       <Link to="/">
-        <h2>OnlineShop</h2>
+        <h2>Pizza&Bread</h2>
       </Link>
       <Link to="/cart">
         <div className="nav-bag">
@@ -31,30 +31,34 @@ const NavBar = () => {
           <span className="bag-quantity">
             <span>{cartTotalQuantity}</span>
           </span>
+          <span>
+            {auth._id ? (
+              <Links>
+                {auth.isAdmin ? (
+                  <div>
+                    <Link to="/admin/summary">
+                      &nbsp; &nbsp; &nbsp; &nbsp; Admin
+                    </Link>
+                  </div>
+                ) : null}
+                <div
+                  onClick={() => {
+                    dispatch(logoutUser(null));
+                    toast.warning("Logged out!", { position: "bottom-left" });
+                  }}
+                >
+                  <a>Logout</a>
+                </div>
+              </Links>
+            ) : (
+              <AuthLinks>
+                <Link to="/login">&nbsp;&nbsp; &nbsp; &nbsp; Login</Link>
+                <Link to="register">Register</Link>
+              </AuthLinks>
+            )}
+          </span>
         </div>
       </Link>
-      {auth._id ? (
-        <Links>
-          {auth.isAdmin ? (
-            <div>
-              <Link to="/admin/summary">Admin</Link>
-            </div>
-          ) : null}
-          <div
-            onClick={() => {
-              dispatch(logoutUser(null));
-              toast.warning("Logged out!", { position: "bottom-left" });
-            }}
-          >
-            Logout
-          </div>
-        </Links>
-      ) : (
-        <AuthLinks>
-          <Link to="/login">Login</Link>
-          <Link to="register">Register</Link>
-        </AuthLinks>
-      )}
     </nav>
   );
 };
