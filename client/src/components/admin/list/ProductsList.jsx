@@ -3,9 +3,12 @@ import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { productsDelete } from "../../../slices/productsSlice";
 
 export default function ProductsList() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { items } = useSelector((state) => state.products);
 
   const rows =
@@ -53,7 +56,7 @@ export default function ProductsList() {
       renderCell: (params) => {
         return (
           <Actions>
-            <Delete>Delete</Delete>
+            <Delete onClick={() => handleDelete(params.row.id)}>Delete</Delete>
             <View onClick={() => navigate(`/product/${params.row.id}`)}>
               View
             </View>
@@ -63,6 +66,10 @@ export default function ProductsList() {
     },
   ];
 
+    const handleDelete = (id) => {
+        dispatch(productsDelete(id))
+    }
+
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
@@ -71,6 +78,7 @@ export default function ProductsList() {
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection
+        disableSelectionOnClick
       />
     </div>
   );
