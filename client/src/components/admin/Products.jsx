@@ -7,20 +7,18 @@ const Products = () => {
   return (
     <>
       <AdminHeaders>
-        <div class="d-flex justify-content-between">
-          <div>
+        {/* <div class="d-flex justify-content-between"> */}
+          <h2>
         Products
-        </div>
-        <div >
+        </h2>
         <PrimaryButton
           onClick={() => navigate("/admin/products/create-product")}
         >
           Create
         </PrimaryButton>
-        <Outlet />
-        </div>
-        </div>
+        
       </AdminHeaders>
+      <Outlet />
     </>
   );
 };
