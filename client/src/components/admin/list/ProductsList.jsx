@@ -2,8 +2,10 @@ import styled from "styled-components";
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductsList() {
+  const navigate = useNavigate();
   const { items } = useSelector((state) => state.products);
 
   const rows =
@@ -50,10 +52,12 @@ export default function ProductsList() {
       width: 170,
       renderCell: (params) => {
         return (
-            <Actions>
-                <Delete>Delete</Delete>
-                <View>View</View>
-            </Actions>
+          <Actions>
+            <Delete>Delete</Delete>
+            <View onClick={() => navigate(`/product/${params.row.id}`)}>
+              View
+            </View>
+          </Actions>
         );
       },
     },
