@@ -5,6 +5,7 @@ import Widget from "./summary-components/Widget";
 import axios from "axios";
 import { setHeaders, url } from "../../slices/api";
 import Chart from "./summary-components/Chart";
+import Transactions from "./summary-components/Transactions";
 const Summary = () => {
   const [users, setUsers] = useState([]);
   const [usersPerc, setUsersPerc] = useState(0);
@@ -122,7 +123,9 @@ const Summary = () => {
         </Overview>
         <Chart/>
       </MainStats>
-      <SideStats></SideStats>
+      <SideStats>
+        <Transactions/>
+      </SideStats>
     </StyledSummary>
   );
 };
