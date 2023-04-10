@@ -4,6 +4,7 @@ import { FaUsers, FaChartBar, FaClipboard } from "react-icons/fa";
 import Widget from "./summary-components/Widget";
 import axios from "axios";
 import { setHeaders, url } from "../../slices/api";
+import Chart from "./summary-components/Chart";
 const Summary = () => {
   const [users, setUsers] = useState([]);
   const [usersPerc, setUsersPerc] = useState(0);
@@ -96,7 +97,7 @@ const Summary = () => {
     },
     {
       icon: <FaChartBar />,
-      digits: income[0]?.total,
+      digits: income[0]?.total ? income[0]?.total/100 : "",
       isMoney: true,
       title: "Earnings",
       color: "rgb(253, 181, 40)",
@@ -119,6 +120,7 @@ const Summary = () => {
             ))}
           </WidgetWrapper>
         </Overview>
+        <Chart/>
       </MainStats>
       <SideStats></SideStats>
     </StyledSummary>
