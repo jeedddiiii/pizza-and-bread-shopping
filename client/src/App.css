@@ -10,6 +10,8 @@
 /* navbar */
 
 .nav-bar {
+  position: sticky;
+  top: 0;
   height: 70px;
   background-color: #e0dfd5;
   display: flex;
@@ -287,6 +289,9 @@
 /* Admin */
 .link-active {
   color: #e0dfd5;
+  border-left: 3px solid #e0dfd5;
+  padding-left: 5px;
+  border-radius: 2px;
 }
 .link-inactive {
   color: #313638;
