@@ -1,7 +1,6 @@
 import { useDispatch , useSelector} from "react-redux";
 import { useNavigate } from "react-router";
 import { addToCart } from "../slices/cartSlice";
-import { useGetAllProductsQuery } from "../slices/productsApi";
 const Home = () => {
   const { items: data, status } = useSelector((state) => state.products);
   //test
