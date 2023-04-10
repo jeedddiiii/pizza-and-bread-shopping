@@ -7,6 +7,17 @@ import { setHeaders, url } from "../../slices/api";
 const Summary = () => {
   const [users, setUsers] = useState([]);
   const [usersPerc, setUsersPerc] = useState(0);
+  const [orders, setOrders] = useState([]);
+  const [ordersPerc, setOrdersPerc] = useState(0);
+  const [income, setIncome] = useState([]);
+  const [incomePerc, setIncomePerc] = useState(0);
+
+  console.log("income", income);
+  console.log("incomeP", incomePerc);
+
+
+  console.log("orders", orders);
+  console.log("ordersP", ordersPerc);
 
   console.log(usersPerc);
 
@@ -35,6 +46,36 @@ const Summary = () => {
     }
     fetchData();
   }, []);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get(`${url}/orders/stats`, setHeaders());
+        res.data.sort(compare);
+        setOrders(res.data);
+        setOrdersPerc(
+          ((res.data[0].total - res.data[1].total) / res.data[1].total) * 100
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchData();
+  }, []);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get(`${url}/orders/income/stats`, setHeaders());
+        res.data.sort(compare);
+        setIncome(res.data);
+        setIncomePerc(
+          ((res.data[0].total - res.data[1].total) / res.data[1].total) * 100
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchData();
+  }, []);
 
   const data = [
     {
@@ -47,20 +88,20 @@ const Summary = () => {
     },
     {
       icon: <FaClipboard />,
-      digits: 70,
+      digits: orders[0]?.total,
       title: "Orders",
       color: "rgb(38, 198, 249)",
       bgColor: "rgba(38, 198, 249,0.12)",
-      percentage: 20,
+      percentage: ordersPerc,
     },
     {
       icon: <FaChartBar />,
-      digits: 5000,
+      digits: income[0]?.total,
       isMoney: true,
       title: "Earnings",
       color: "rgb(253, 181, 40)",
       bgColor: "rgba(253, 181, 40,0.12)",
-      percentage: -60,
+      percentage: incomePerc,
     },
   ];
 

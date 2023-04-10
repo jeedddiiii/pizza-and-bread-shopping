@@ -80,13 +80,12 @@ router.post("/create-checkout-session", async (req, res) => {
 });
 
 //Create order
-const createOrder = async (customer, data,lineItems) => {
-
+const createOrder = async (customer, data, lineItems) => {
   const newOrder = new Order({
     userId: customer.metadata.userId,
     customerId: data.customer,
     paymentIntentId: data.payment_intent,
-    products: lineItems.data,
+    products: lineItems,
     subtotal: data.amount_total,
     total: data.amount_total,
     shipping: data.customer_details,
@@ -115,12 +114,13 @@ router.post(
 
     let data;
     let eventType;
-
+    
     if (endpointSecret) {
       let event;
-
       try {
+        console.log(req.body);
         event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+
         console.log("Webhook received!");
       } catch (err) {
         console.log(`Webhook Error: ${err.message}`);
