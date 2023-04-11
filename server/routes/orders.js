@@ -35,6 +35,20 @@ router.put("/:id", isAdmin, async (req, res) => {
   }
 });
 
+//GET AN ORDER
+router.get("/findOne/:id", auth, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (req.user._id !== order.userId || !req.user.isAdmin)
+      return res
+        .status(403)
+        .send("Access denied. You are not allowed to view this order");
+
+    res.status(200).send(order);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 // GET ORDER STATS
 

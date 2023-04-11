@@ -4,8 +4,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { productsDelete } from "../../../slices/productsSlice";
-import EditProduct from "../EditProduct";
 import { ordersEdit, ordersFetch } from "../../../slices/ordersSlice";
 import moment from "moment";
 
@@ -75,7 +73,7 @@ export default function OrdersList() {
               Dispatch
             </DispatchBtn>
             <DeliveryBtn onClick={() => handleOrderDeliver(params.row.id)}>Deliver</DeliveryBtn>
-            <View>View</View>
+            <View onClick={() => navigate(`/order/${params.row.id}`)}>View</View>
           </Actions>
         );
       },
