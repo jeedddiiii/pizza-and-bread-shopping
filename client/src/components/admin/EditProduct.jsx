@@ -16,7 +16,8 @@ export default function EditProduct({prodId}) {
   const [open, setOpen] = React.useState(false);
   
   const dispatch = useDispatch();
-  const {items} = useSelector((state) => state.products);
+  const {items,editStatus} = useSelector((state) => state.products);
+  
 
   const [currentProd, setCurrentProd] = useState({});
   const [previewImg, setPreviewImg] = useState("");
@@ -52,6 +53,10 @@ export default function EditProduct({prodId}) {
       productsEdit({
         productImg,
         product:{
+            ...currentProd,
+            name:name,
+            price:price,
+            desc:desc,
 
         }
       })
@@ -93,7 +98,7 @@ export default function EditProduct({prodId}) {
                 type="file"
                 accept="image/"
                 onChange={handleProductImageUpload}
-                required
+                
               />
               <input
                 type="text"
@@ -116,7 +121,9 @@ export default function EditProduct({prodId}) {
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
               />
-              <PrimaryButton type="submit">Submit</PrimaryButton>
+              <PrimaryButton type="submit">
+                {editStatus === "pending"? "Submitting...":"Submit"}
+              </PrimaryButton>
             </StyledForm>
             <ImagePreview>
               {previewImg ? (
@@ -131,7 +138,7 @@ export default function EditProduct({prodId}) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+
         </DialogActions>
       </Dialog>
     </div>
