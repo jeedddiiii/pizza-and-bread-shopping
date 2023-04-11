@@ -7,7 +7,7 @@ import { setHeaders, url } from "../../slices/api";
 const Order = () => {
   const params = useParams();
   const [order, setOrder] = useState({});
-  console.log(order)
+  console.log(order);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const Order = () => {
               )}
             </p>
 
-            <h3>Ordered Products</h3>
+            {/* <h3>Ordered Products</h3>
             <Items>
               {order.products?.map((product, index) => (
                 <Item key={index}>
@@ -59,7 +59,7 @@ const Order = () => {
                   </span>
                 </Item>
               ))}
-            </Items>
+            </Items> */}
             <div>
               <h3>Total Price</h3>
               <p>{"฿" + (order.total / 100).toLocaleString()}</p>

@@ -50,10 +50,6 @@ const Product = () => {
             <ProductDetails>
               <h3>{product.name}</h3>
               <p>
-                <span>Brand:</span>
-                {product.brand}
-              </p>
-              <p>
                 <span>Description:</span>
                 {product.desc}
               </p>

@@ -110,11 +110,7 @@ export default function OrdersList() {
     </div>
   );
 }
-const ImageConatiner = styled.div`
-  img {
-    height: 40px;
-  }
-`;
+
 const Actions = styled.div`
   width: 100%;
   display: flex;

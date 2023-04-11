@@ -5,14 +5,17 @@ import styled from 'styled-components';
 
 
 const AllTimeData = () => {
-
-    const {items} = useSelector(state => state.products)
+  
+  const {items} = useSelector(state => state.products)
+ 
+   
+    
 
   return <Main>
     <h3>All Time</h3>
     <Info>
         <Title>Users</Title>
-        <Data>200</Data>
+        <Data>10</Data>
     </Info>
     <Info>
         <Title>Products</Title>
@@ -20,11 +23,11 @@ const AllTimeData = () => {
     </Info>
     <Info>
         <Title>Orders</Title>
-        <Data>200</Data>
+        <Data>6</Data>
     </Info>
     <Info>
         <Title>Earnings</Title>
-        <Data>฿200</Data>
+        <Data>฿900</Data>
     </Info>
   </Main>;
 };
